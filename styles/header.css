@@ -1,0 +1,167 @@
+.cabecalho__hamburguer {
+    width: 24px;
+    height: 24px;
+    background-image: url("../assets/Menu.svg");
+    /* os dois pontos significam: se não tivesse, o código entenderia que a imagem esta dentro da pasta "styles", mas não está e ele não acharia nada. Mas como colocamos os dois pontos (..) ele volta até a pasta principal para procurar a imagem por lá */
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.cabecalho {
+    background-color: var(--cor-branco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    /* o relative libera a colocação de top, left, right e botton no objeto, ou seja, tem a possibilidade de colocar outros objetos em cima*/
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container__imagem {
+    padding: 1em;
+}
+
+.lista-menu {
+    display: none;
+    position: absolute;
+    /* o absolute permite a colocação do objeto de acordo com outro que veio antes, que teve a position diferente de static (que é a padrão) */
+    top: 100%;
+    width: 60vw;
+}
+
+.container__botao:checked~.lista-menu {
+    display: block;
+}
+/* O ~ é o mais perto de condicional que temos, ele significa que: se o container__botao estiver checked, então ele vai procurar a classe lista-menu e colocar um display:block nela */
+
+.container__botao:checked + label .cabecalho__hamburguer {
+    /* O + é um seletor adjacente de irmãos. Ele seleciona o elemento label que é imediatamente adjacente ao elemento input com a classe container__botao que está marcado.
+    Em outras palavras, ele seleciona o próximo label que está imediatamente após o input checkbox marcado. */
+    background-image: url("../assets/Menu-Aberto.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* .container__botao:checked~.container__rotulo>.cabecalho__hamburguer {
+    background-image: url("../assets/Menu-Aberto.svg");
+}  SOLUÇÃO DA ALURA -- O ~ SIGNIFICA QUE O CSS VAI PROCURAR A PRÓXIMA CLASSE APÓS A PRIMEIRA QUE VEIO. DEPOIS O > SIGNIFICA QUE VAI PROCURAR UMA CLASSE DENTRO DA QUE ELE ACABOU DE ACHAR, AÍ ELE VAI ALTERAR ESSA CLASSE.*/
+
+
+.lista-menu__titulo,
+.lista-menu__item {
+    padding: 1em;
+    background-color: var(--cor-branco);
+}
+
+.lista-menu__titulo {
+    color: var(--cor-titulo);
+    font-weight: 700;
+}
+
+.lista-menu__link {
+    background: var(--cor-gradiente);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+}
+
+.container__botao, .container__titulo, .opções, .container__texto {
+    display: none;
+}
+
+
+@media screen and (min-width: 1024px) {
+    /* O max - layout Desktop pronto e queremos adaptá-lo para dispositivos menores - vamos então definindo novas regras que se aplicam só aos dispositivos de no máximo certo tamanho. O min - mobile, nesse caso, é mais fácil ter um layout base e ir customizando para dispositivos maiores, com no mínimo certo tamanho. */
+
+    .container__titulo, .container__titulo--negrito {
+        font-family: var(--font-logo);
+        font-size: 30px;
+    }
+
+    .container__titulo {
+        font-weight: 400;
+        display: block;
+    }
+
+    .container__titulo--negrito {
+        font-weight: 700;
+    }
+
+    .opções {
+        display: flex;
+    }
+
+    .opções__item {
+        padding: 0 1em;
+        text-transform: uppercase;
+    }
+
+    .opções__link {
+        text-decoration: none;
+        color: var(--cor-preto);
+    }
+
+    .container__imagem--favoritos {
+        display: none;
+    }
+
+    .cabecalho__hamburguer {
+        display: none;
+    }
+
+    .opções__botão:checked ~ .lista-menu {
+        display: block;
+        width: auto;
+    }
+
+    .opções__botão {
+        display: none;
+    }
+
+    .opções__botão:checked~.opções__rotulo > .opções__item {
+        background: var(--cor-gradiente);
+        color: var(--cor-branco);
+    }
+
+    .opções__item {
+        padding: 2em 1em;;
+    }
+
+    .lista-menu__item:hover {
+        background: var(--cor-gradiente);
+    }
+
+    .lista-menu__item:hover > .lista-menu__link {
+        -webkit-text-fill-color: var(--cor-branco);
+        /* esse webkit é porque lá no começo do projeto, tivemos que colocar o degradê de fundo e depois associá-lo a uma font, e quando usamos o text fill color, delimitamos ele como transparente, por isso, ele não aplicava cor nenhuma além do degradê. Por isso colocamos que a cor é branca agora */
+        text-decoration: none;
+    }
+}
+
+@media screen and (min-width: 1728px) {
+    .container__texto {
+        display: block;
+    }
+
+    .container__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--cor-preto);
+    }
+
+    .cabecalho {
+        padding: 0 2em;
+    }
+
+    .opções {
+        margin-right: auto;
+        /* o auto faz com que o navegador tente prerencher todo o vazio com margem, assim ele levou todos os itens dessa seção para a esquerda */
+    }
+}
